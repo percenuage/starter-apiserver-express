@@ -5,6 +5,7 @@
 const Express = require('express');
 const BodyParser = require('body-parser');
 const MethodOverride = require('method-override');
+const Helmet = require('helmet');
 const Auth = require("http-auth");
 
 /* ---------- APPLICATION ---------- */
@@ -18,6 +19,7 @@ const UserRoute = require('./user/user.route');
 /* ---------- CONFIGURATIONS ---------- */
 
 app.use(Auth.connect(Auth.basic({realm: "Private area", file: ".htpasswd"})));
+app.use(Helmet());
 if (process.env.ENABLE_LOG == 'true') {
     app.use(require('morgan')('dev'));
 }
