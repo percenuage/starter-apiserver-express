@@ -1,0 +1,35 @@
+{
+  "name": "starter-apiserver-express",
+  "version": "1.0.0",
+  "description": "Starter | API Server | Express",
+  "author": "Percenuage",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:percenuage/starter-apiserver-express.git"
+  },
+  "engines": {
+    "node": "8.x.x",
+    "npm": "5.x.x"
+  },
+  "main": "bin/server.js",
+  "scripts": {
+    "start": "nodemon --watch server/ --watch bin/ server/app.js",
+    "test": "echo test"
+  },
+  "license": "SEE LICENSE",
+  "homepage": "https://github.com/percenuage/starter-apiserver-express/blob/master/README.md",
+  "private": false,
+  "dependencies": {
+    "body-parser": "1.17.2",
+    "dotenv": "4.0.0",
+    "express": "4.15.3",
+    "http-auth": "3.2.3",
+    "method-override": "2.3.9",
+    "mongoose": "4.11.1",
+    "morgan": "1.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "1.11.0"
+  }
+}
