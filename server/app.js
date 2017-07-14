@@ -18,9 +18,11 @@ const UserRoute = require('./user/user.route');
 
 /* ---------- CONFIGURATIONS ---------- */
 
-app.use(Auth.connect(Auth.basic({realm: "Private area", file: ".htpasswd"})));
 app.use(Helmet());
-if (process.env.ENABLE_LOG == 'true') {
+if (process.env.NODE_ENV !== 'development') {
+    app.use(Auth.connect(Auth.basic({realm: "Private area", file: ".htpasswd"})));
+}
+if (process.env.ENABLE_LOG === 'true') {
     app.use(require('morgan')('dev'));
 }
 app.use(BodyParser.urlencoded({ extended: true }));
