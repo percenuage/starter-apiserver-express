@@ -14,7 +14,7 @@
   },
   "main": "bin/server.js",
   "scripts": {
-    "start": "nodemon --watch server/ --watch bin/ server/app.js",
+    "start": "nodemon --watch server/ --watch bin/ .",
     "test": "echo test"
   },
   "license": "SEE LICENSE",
