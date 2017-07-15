@@ -14,6 +14,9 @@ let app = Express();
 
 /* ---------- ROUTES ---------- */
 
+const API_VERSION = require('../package.json').version.split('.').shift();
+const API_ROOT = '/api/v' + API_VERSION;
+
 const UserRoute = require('./user/user.route');
 
 /* ---------- CONFIGURATIONS ---------- */
@@ -32,7 +35,7 @@ app.use(MethodOverride());
 
 app.use(Express.static('./client'));
 
-app.use('/users', UserRoute);
+app.use(API_ROOT + '/users', UserRoute);
 
 /* ---------- DATABASE ---------- */
 
