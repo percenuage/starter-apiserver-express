@@ -6,6 +6,7 @@ const Express = require('express');
 const BodyParser = require('body-parser');
 const MethodOverride = require('method-override');
 const Helmet = require('helmet');
+const CORS = require('cors');
 const Auth = require("http-auth");
 
 /* ---------- APPLICATION ---------- */
@@ -32,6 +33,10 @@ app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
 app.use(BodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(MethodOverride());
+app.use(CORS({
+    origin: process.env.CORS_ORIGINS.split(','),
+    credentials: true, maxAge: 86400
+}));
 
 app.use(Express.static('./client'));
 
