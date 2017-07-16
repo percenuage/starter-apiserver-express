@@ -35,7 +35,7 @@ app.use(BodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(MethodOverride());
 app.use(CORS({
     origin: process.env.CORS_ORIGINS.split(','),
-    credentials: true, maxAge: 86400
+    credentials: true, maxAge: 86400, preflightContinue: true
 }));
 
 app.use(Express.static('./client'));
