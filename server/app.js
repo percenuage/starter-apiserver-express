@@ -4,10 +4,11 @@
 
 const Express = require('express');
 const BodyParser = require('body-parser');
-const MethodOverride = require('method-override');
 const Helmet = require('helmet');
 const CORS = require('cors');
-const Auth = require("http-auth");
+const Morgan = require('morgan');
+const Auth = require('express-basic-auth');
+// const Status = require('express-server-status');
 
 /* ---------- APPLICATION ---------- */
 
@@ -18,43 +19,31 @@ let app = Express();
 const API_VERSION = require('../package.json').version.split('.').shift();
 const API_ROOT = '/api/v' + API_VERSION;
 
-const UserRoute = require('./user/user.route');
+const UserRoute = require('./api/user/user.route');
 
 /* ---------- CONFIGURATIONS ---------- */
 
+app.set('trust proxy', true);
+
 app.use(Helmet());
-if (process.env.NODE_ENV !== 'development') {
-    app.use(Auth.connect(Auth.basic({realm: "Private area", file: ".htpasswd"})));
-}
-if (process.env.ENABLE_LOG === 'true') {
-    app.use(require('morgan')('dev'));
-}
+app.use(Morgan(process.env.MORGAN_LOG));
 app.use(BodyParser.urlencoded({ extended: true }));
 app.use(BodyParser.json());
-app.use(BodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(MethodOverride());
 app.use(CORS({
     origin: process.env.CORS_ORIGINS.split(','),
     credentials: true, maxAge: 86400, preflightContinue: true
 }));
-
+app.use('/api', Auth({users: JSON.parse(process.env.BASIC_AUTH_TOKEN), challenge: true}));
 app.use(Express.static('./client'));
 
+// app.use('/status', Status(app));
 app.use(API_ROOT + '/users', UserRoute);
 
-/* ---------- DATABASE ---------- */
-
-const Database = require('./configs/database.config');
-
-app.setup = () => {
-    return Database.connect(process.env.MONGO_URI);
-};
+app.use((err, req, res, next) => res.status(err.statusCode || 500).send(err.message));
 
 /* ---------- START ---------- */
 
-app.start = (port, host) => {
-    return app.listen(port, host);
-};
+app.start = (port, host) => app.listen(port, host);
 
 /* ---------- MODULE EXPORTS ---------- */
 

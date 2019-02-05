@@ -4,9 +4,10 @@ const Mongoose = require('mongoose');
 
 Mongoose.Promise = global.Promise;
 
-function connect(uri) {
-    return Mongoose.connect(uri);
-}
+console.log(process.env.MONGO_LOG);
+Mongoose.set('debug', process.env.MONGO_LOG);
+Mongoose.set('useNewUrlParser', true);
+Mongoose.set('useCreateIndex', true);
 
 Mongoose.connection.on('connected', () => {
     const DB = Mongoose.connection;
@@ -28,4 +29,4 @@ process.on('SIGINT', () => {
     });
 });
 
-module.exports.connect = connect;
+module.exports.connect = uri => Mongoose.connect(uri);

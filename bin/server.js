@@ -2,23 +2,25 @@
 
 'use strict';
 
-const SERVER = '../server';
-
 /* ---------- ENVIRONMENT VARIABLES ---------- */
 
 require('dotenv').config();
 
 /* ---------- MAIN ---------- */
 
-let app = require(SERVER + '/app');
+const SERVER = '../server';
+const App = require(SERVER + '/app');
+const Database = require(SERVER + '/database');
 
-app.setup()
-    .then(() => {
-        return app.start(process.env.PORT, process.env.HOST);
-    })
-    .then(() => {
-        console.info(`[${process.env.NODE_ENV}] Server listening @ ${process.env.HOST}:${process.env.PORT}`);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+(async() => {
+    try {
+        await Database.connect(process.env.MONGO_URI);
+        await App.start(process.env.PORT, process.env.HOST);
+        console.info(`[${process.env.NODE_ENV}] Server listening @ ${process.env.HOST}:${process.env.PORT}`)
+    } catch (err) {
+        console.error(err)
+    }
+})();
+
+
+

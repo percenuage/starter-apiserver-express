@@ -18,11 +18,4 @@ const UserSchema = new Mongoose.Schema({
 
 }, options);
 
-UserSchema.pre('findOneAndUpdate', next => {
-    if (this._update && this._update.updatedAt) {
-        this._update.updatedAt = Date.now();
-    }
-    next();
-});
-
 module.exports = Mongoose.model('User', UserSchema);
