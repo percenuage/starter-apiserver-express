@@ -43,7 +43,15 @@ app.use((err, req, res, next) => res.status(err.statusCode || 500).send(err.mess
 
 /* ---------- START ---------- */
 
-app.start = (port, host) => app.listen(port, host);
+app.start = (port, host) => {
+    const {NODE_ENV} = process.env;
+    return new Promise(resolve => {
+        let server = app.listen(port, host, () => {
+            console.info(`[${NODE_ENV}] Server listening @ ${host}:${port}`);
+            resolve(server);
+        })
+    });
+};
 
 /* ---------- MODULE EXPORTS ---------- */
 

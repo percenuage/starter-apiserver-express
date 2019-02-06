@@ -10,8 +10,9 @@ Mongoose.set('useNewUrlParser', true);
 Mongoose.set('useCreateIndex', true);
 
 Mongoose.connection.on('connected', () => {
-    const DB = Mongoose.connection;
-    console.info(`[${process.env.NODE_ENV}] Mongoose connection open @ ${DB.host}:${DB.port} => ${DB.name}`);
+    const {host, port, name} = Mongoose.connection;
+    const {NODE_ENV} = process.env;
+    console.info(`[${NODE_ENV}] Mongoose connection open @ ${host}:${port}/${name}`);
 });
 
 Mongoose.connection.on('error', err => {
