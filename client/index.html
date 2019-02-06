@@ -1,18 +1,97 @@
 <html>
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
-		<title>Starter • API Server • Express</title>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
-		<link rel="icon" type="image/png" sizes="96x96" href="http://lorempixel.com/96/96/abstract/">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-	</head>
-	<body style="border: #86BC25 solid .5rem;margin: 0;text-align: center">
-		<h1 style="margin: 1rem 0">Starter • API Server • Express</h1>
-		<div class="animated zoomIn" style="margin: 5rem 0">
-			<img style="border-radius: 50%" src="http://lorempixel.com/400/400/abstract/" alt="Image">
+	<title>Starter • API Server • Express</title>
+
+	<!-- FAVICON -->
+	<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+
+	<!-- STYLES -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+	<style>
+		html, body {
+			font-family: "Open Sans",sans-serif;
+			font-size: 1rem;
+			background-color: whitesmoke;
+		}
+
+		main {
+			text-align: center;
+		}
+
+		.mdl-card__title {
+			background-color: black;
+			color: white;
+		}
+
+		.mdl-card__supporting-text {
+			font-size: 2rem;
+			line-height: 2rem;
+		}
+
+		i.material-icons {
+			color: #86BC25;
+		}
+
+		.deloitte-dot:after {
+			content: '•';
+			color: #86BC25;
+		}
+	</style>
+
+	<!-- SCRIPTS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<script>
+		'use strict';
+		$.get('/status', function(res) {
+			$('#content-started').html(res.started);
+			$('#content-uptime').html(res.uptime);
+		});
+	</script>
+
+</head>
+
+<body>
+
+<main class="mdl-grid">
+
+	<h1 class="mdl-cell mdl-cell--12-col">
+		Starter <span class="deloitte-dot"></span> API Server <span class="deloitte-dot"></span> Express
+	</h1>
+
+	<div class="mdl-cell mdl-cell--1-offset mdl-cell--4-col mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Started</h2>
 		</div>
-	</body>
+		<div class="mdl-card__supporting-text">
+			<span id="content-started">0</span>
+		</div>
+		<div class="mdl-card__menu">
+			<i class="material-icons">schedule</i>
+		</div>
+	</div>
+
+	<div class="mdl-cell mdl-cell--2-offset mdl-cell--4-col mdl-card mdl-shadow--2dp">
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Uptime</h2>
+		</div>
+		<div class="mdl-card__supporting-text">
+			<span id="content-uptime">0</span>
+		</div>
+		<div class="mdl-card__menu">
+			<i class="material-icons">favorite</i>
+		</div>
+	</div>
+
+</main>
+
+</body>
+
 </html>

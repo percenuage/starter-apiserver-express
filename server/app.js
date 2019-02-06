@@ -8,7 +8,7 @@ const Helmet = require('helmet');
 const CORS = require('cors');
 const Morgan = require('morgan');
 const Auth = require('express-basic-auth');
-// const Status = require('express-server-status');
+const Status = require('express-status-monitor'); // See also express-server-status
 
 /* ---------- APPLICATION ---------- */
 
@@ -36,7 +36,7 @@ app.use(CORS({
 app.use('/api', Auth({users: JSON.parse(process.env.BASIC_AUTH_TOKEN), challenge: true}));
 app.use(Express.static('./client'));
 
-// app.use('/status', Status(app));
+app.use(Status());
 app.use(API_ROOT + '/users', UserRoute);
 
 app.use((err, req, res, next) => res.status(err.statusCode || 500).send(err.message));
