@@ -57,7 +57,4 @@ typings/
 # IDE
 .idea/
 
-# dotenv environment variables file
-.env
-
 
