@@ -39,7 +39,7 @@
 			color: #86BC25;
 		}
 
-		.deloitte-dot:after {
+		.dot:after {
 			content: '•';
 			color: #86BC25;
 		}
@@ -50,10 +50,10 @@
 	<script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 	<script>
 		'use strict';
-		$.get('/status', function(res) {
+		/*$.get('/status', function(res) {
 			$('#content-started').html(res.started);
 			$('#content-uptime').html(res.uptime);
-		});
+		});*/
 	</script>
 
 </head>
@@ -63,7 +63,7 @@
 <main class="mdl-grid">
 
 	<h1 class="mdl-cell mdl-cell--12-col">
-		Starter <span class="deloitte-dot"></span> API Server <span class="deloitte-dot"></span> Express
+		Starter <span class="dot"></span> API Server <span class="dot"></span> Express
 	</h1>
 
 	<div class="mdl-cell mdl-cell--1-offset mdl-cell--4-col mdl-card mdl-shadow--2dp">
