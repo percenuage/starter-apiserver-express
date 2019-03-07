@@ -20,7 +20,7 @@ const localStrategy = () => {
 
     const localCallback = async (req, email, password, done) => {
         let user = await User.findOne({email: email}).catch(err => done(err));
-        if (!user || user.password !== password) {
+        if (!user || !user.compare(password)) {
             return done(null, false, {message: 'Incorrect email or password.'});
         }
         return done(null, user);

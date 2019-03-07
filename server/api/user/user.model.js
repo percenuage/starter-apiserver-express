@@ -1,6 +1,7 @@
 'use strict';
 
 const Mongoose = require('mongoose');
+const Bcrypt = require('bcryptjs');
 
 const options = {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
@@ -18,5 +19,19 @@ const UserSchema = new Mongoose.Schema({
     tags: [ String ]
 
 }, options);
+
+/* ---------- MIDDLEWARE ---------- */
+
+UserSchema.post('validate', async user => {
+    let salt = await Bcrypt.genSalt(10);
+    let hash = await Bcrypt.hash(user.password, salt);
+    user.password = hash;
+});
+
+/* ---------- METHODS ---------- */
+
+UserSchema.methods.compare = function(password) {
+    return Bcrypt.compareSync(password, this.password);
+};
 
 module.exports = Mongoose.model('User', UserSchema);
