@@ -4,7 +4,6 @@ const Mongoose = require('mongoose');
 
 Mongoose.Promise = global.Promise;
 
-console.log(process.env.MONGO_LOG);
 Mongoose.set('debug', process.env.MONGO_LOG);
 Mongoose.set('useNewUrlParser', true);
 Mongoose.set('useCreateIndex', true);
